@@ -5,7 +5,7 @@
     "logoUrl": "URL_OF_YOUR_LOGO",
     "organizationUrl": "https://yourwebsite.com",
     "supportUrl": "https://yourwebsite.com/support",
-    "packageUrl": "URL_TO_YOUR_VISUALIZATION_CODE",
+    "packageUrl": "https://benji-am-i.github.io/insiteai",
     "privacyPolicyUrl": "https://yourwebsite.com/privacy",
     "termsOfServiceUrl": "https://yourwebsite.com/terms",
     "data": ["METRIC"]
