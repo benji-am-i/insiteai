@@ -1,0 +1,12 @@
+{
+    "name": "OpenAI Insight",
+    "organization": "YourOrgName",
+    "description": "Visualization that produces insights using OpenAI",
+    "logoUrl": "URL_OF_YOUR_LOGO",
+    "organizationUrl": "https://yourwebsite.com",
+    "supportUrl": "https://yourwebsite.com/support",
+    "packageUrl": "URL_TO_YOUR_VISUALIZATION_CODE",
+    "privacyPolicyUrl": "https://yourwebsite.com/privacy",
+    "termsOfServiceUrl": "https://yourwebsite.com/terms",
+    "data": ["METRIC"]
+}
