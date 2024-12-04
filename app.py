@@ -3,7 +3,7 @@ from flask_cors import CORS
 import requests
 
 app = Flask(__name__)
-CORS(app)  # Automatically adds CORS headers for all routes
+CORS(app)
 
 # Gemini API endpoint and your API key
 GEMINI_API_URL = "https://gemini.googleapis.com/v1beta2/models/gemini-1.5-pro:generateText"
@@ -11,7 +11,6 @@ API_KEY = "AIzaSyCHo1yOJUqDQZxC3K5l8II0XDrlCPFvYd0"  # Replace with your actual 
 
 @app.route('/proxy', methods=['POST', 'OPTIONS'])
 def proxy():
-    # Handle preflight (OPTIONS) request
     if request.method == 'OPTIONS':
         response = make_response()
         response.headers['Access-Control-Allow-Origin'] = '*'
@@ -19,21 +18,38 @@ def proxy():
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
         return response
 
-    # Get the request payload
+    # Get the request payload from the client
     data = request.get_json()
 
-    # Forward the request to Gemini API
-    headers = {
-        "Authorization": f"Bearer {API_KEY}",
-        "Content-Type": "application/json",
-    }
-    response = requests.post(GEMINI_API_URL, headers=headers, json=data)
+    try:
+        # Forward the request to the Gemini API
+        headers = {
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json",
+        }
+        response = requests.post(GEMINI_API_URL, headers=headers, json=data)
 
-    # Return the response to the client
-    proxy_response = make_response(response.json())
-    proxy_response.headers['Access-Control-Allow-Origin'] = '*'
-    return proxy_response
+        # Log the Gemini API response
+        print("Gemini API Response Status Code:", response.status_code)
+        print("Gemini API Response Text:", response.text)
+
+        # Return the Gemini API response to the client
+        if response.status_code == 200:
+            return jsonify(response.json())
+        else:
+            # Handle non-200 responses
+            return make_response(
+                jsonify({"error": f"Gemini API returned status {response.status_code}", "details": response.text}),
+                response.status_code,
+            )
+    except Exception as e:
+        # Log the exception
+        print("Error occurred:", e)
+        return make_response(jsonify({"error": "Internal server error", "details": str(e)}), 500)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
+
+
+
 
