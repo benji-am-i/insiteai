@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Gemini API endpoint and your API key
-GEMINI_API_URL = "https://gemini.googleapis.com/v1beta2/models/gemini-1.5-pro:generateText"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText"
 API_KEY = "AIzaSyCHo1yOJUqDQZxC3K5l8II0XDrlCPFvYd0"  # Replace with your actual API key
 
 @app.route('/proxy', methods=['POST', 'OPTIONS'])
