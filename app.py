@@ -10,12 +10,12 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Configuration
-SERVICE_ACCOUNT_URL = "https://storage.googleapis.com/ai_comms/property-clients-1fba63ba6d0c.json"  # URL to your service account key file
+SERVICE_ACCOUNT_URL = "https://storage.googleapis.com/ai_comms/property-clients-1fba63ba6d0c.json"  # Your service account key
 SCOPES = ["https://www.googleapis.com/auth/generative-language"]
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText"
 
 def get_service_account_credentials():
-    """Fetch the service account JSON from the hosted URL and return credentials."""
+    """Fetch and return service account credentials from the hosted URL."""
     try:
         with urllib.request.urlopen(SERVICE_ACCOUNT_URL) as response:
             service_account_json = json.load(response)
@@ -61,7 +61,7 @@ def proxy():
 
         response = requests.post(GEMINI_API_URL, headers=headers, json=data)
 
-        # Log the Gemini API response
+        # Log and return the Gemini API response
         print(f"Gemini API Response Status Code: {response.status_code}")
         print(f"Gemini API Response Body: {response.text}")
 
